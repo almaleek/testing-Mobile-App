@@ -123,6 +123,30 @@ export function UpdateModal({ visible, downloading, error, onUpdate, onLater }: 
   </Modal>;
 }
 
+export function UrgentMessage({ title, body, onPress }: { title: string; body: string; onPress?: () => void }) {
+  return <Pressable onPress={onPress} style={({ pressed }) => [styles.urgentCard, pressed && styles.pressed]}>
+    <View style={styles.urgentIcon}><Feather name="alert-triangle" size={17} color="#B4770B" /></View>
+    <View style={styles.urgentCopy}><Text style={styles.urgentEyebrow}>URGENT NOTICE</Text><Text style={styles.urgentTitle}>{title}</Text><Text style={styles.urgentBody}>{body}</Text></View>
+    {onPress ? <Feather name="chevron-right" size={17} color="#B4770B" /> : null}
+  </Pressable>;
+}
+
+export function PromotionModal({ visible, onClose, onAction }: { visible: boolean; onClose: () => void; onAction: () => void }) {
+  return <Modal visible={visible} transparent animationType="fade" onRequestClose={onClose}>
+    <View style={styles.promotionBackdrop}>
+      <View style={styles.promotionCard}>
+        <Pressable onPress={onClose} style={styles.promotionClose} accessibilityLabel="Close promotion"><Feather name="x" size={18} color="#fff" /></Pressable>
+        <View style={styles.promotionArtwork}><View style={styles.promotionRing} /><Feather name="wifi" size={42} color="#fff" /><View style={styles.promotionSpark}><Feather name="star" size={14} color="#F6C453" /></View></View>
+        <Text style={styles.promotionEyebrow}>PAYONCE DATA PERK</Text>
+        <Text style={styles.promotionTitle}>Stay connected, get 5% back.</Text>
+        <Text style={styles.promotionBody}>Buy any data bundle today and enjoy a demo cashback reward in your PayOnce wallet.</Text>
+        <Button label="View data plans" onPress={onAction} icon="arrow-up-right" />
+        <Pressable onPress={onClose} style={styles.promotionLater}><Text style={styles.promotionLaterText}>Maybe later</Text></Pressable>
+      </View>
+    </View>
+  </Modal>;
+}
+
 export const styles = StyleSheet.create({
   screen: { flex: 1, backgroundColor: C.background, paddingHorizontal: 20 },
   header: { minHeight: 76, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' },
@@ -136,4 +160,6 @@ export const styles = StyleSheet.create({
   resultScreen: { justifyContent: 'space-between', paddingTop: 70, paddingBottom: 30 }, resultContent: { alignItems: 'center' }, resultIcon: { width: 100, height: 100, borderRadius: 50, alignItems: 'center', justifyContent: 'center', marginBottom: 24 }, resultTitle: { color: C.foreground, fontFamily: 'Inter_700Bold', fontSize: 26, textAlign: 'center' }, resultBody: { color: C.mutedForeground, fontFamily: 'Inter_400Regular', fontSize: 14, lineHeight: 22, textAlign: 'center', maxWidth: 290, marginTop: 10 }, reference: { backgroundColor: C.card, borderRadius: 16, padding: 17, width: '100%', alignItems: 'center', marginTop: 32 }, referenceLabel: { color: C.mutedForeground, fontSize: 11, fontFamily: 'Inter_400Regular' }, referenceValue: { color: C.foreground, fontFamily: 'Inter_600SemiBold', fontSize: 14, marginTop: 6 }, resultActions: { gap: 10 },
   pinBackdrop: { flex: 1, justifyContent: 'flex-end' }, pinBackdropTap: { ...StyleSheet.absoluteFill, backgroundColor: 'rgba(17,33,58,.42)' }, pinSheet: { backgroundColor: C.background, borderTopLeftRadius: 28, borderTopRightRadius: 28, padding: 22, paddingBottom: 30, alignItems: 'center' }, handle: { width: 42, height: 5, borderRadius: 3, backgroundColor: C.border, marginBottom: 18 }, pinIcon: { width: 48, height: 48, borderRadius: 17, backgroundColor: C.secondary, alignItems: 'center', justifyContent: 'center', marginBottom: 13 }, pinTitle: { color: C.foreground, fontFamily: 'Inter_700Bold', fontSize: 19 }, pinBody: { color: C.mutedForeground, fontFamily: 'Inter_400Regular', fontSize: 12, textAlign: 'center', marginTop: 6, marginBottom: 19 }, pinInput: { width: 170, height: 58, borderRadius: 16, borderWidth: 1, borderColor: C.primary, backgroundColor: C.card, color: C.foreground, textAlign: 'center', fontFamily: 'Inter_700Bold', fontSize: 24, letterSpacing: 8 }, pinError: { color: C.destructive, fontFamily: 'Inter_500Medium', fontSize: 11, marginTop: 9, marginBottom: 10 }, pinHint: { color: C.mutedForeground, fontFamily: 'Inter_400Regular', fontSize: 11, marginTop: 9, marginBottom: 10 }, cancel: { alignItems: 'center', paddingVertical: 14 }, cancelText: { color: C.mutedForeground, fontFamily: 'Inter_600SemiBold', fontSize: 13 },
   updateBackdrop: { flex: 1, backgroundColor: 'rgba(17,33,58,.42)', alignItems: 'center', justifyContent: 'center', paddingHorizontal: 24 }, updateCard: { width: '100%', backgroundColor: C.background, borderRadius: 25, padding: 23, alignItems: 'center' }, updateIcon: { width: 58, height: 58, borderRadius: 20, backgroundColor: C.secondary, alignItems: 'center', justifyContent: 'center', marginBottom: 15 }, updateTitle: { color: C.foreground, fontFamily: 'Inter_700Bold', fontSize: 20, textAlign: 'center' }, updateBody: { color: C.mutedForeground, fontFamily: 'Inter_400Regular', fontSize: 13, lineHeight: 20, textAlign: 'center', marginTop: 8, marginBottom: 20 }, updateLater: { paddingVertical: 14 }, updateLaterText: { color: C.mutedForeground, fontFamily: 'Inter_600SemiBold', fontSize: 13 },
+  urgentCard: { backgroundColor: '#FFF8E8', borderWidth: 1, borderColor: '#F8E1A9', borderRadius: 18, padding: 13, flexDirection: 'row', alignItems: 'center', marginBottom: 21 }, urgentIcon: { width: 36, height: 36, borderRadius: 12, backgroundColor: '#FFEFC5', alignItems: 'center', justifyContent: 'center' }, urgentCopy: { flex: 1, marginHorizontal: 10 }, urgentEyebrow: { color: '#B4770B', fontFamily: 'Inter_700Bold', fontSize: 9, letterSpacing: 1.1 }, urgentTitle: { color: C.foreground, fontFamily: 'Inter_700Bold', fontSize: 12, marginTop: 4 }, urgentBody: { color: '#8D702D', fontFamily: 'Inter_400Regular', fontSize: 11, lineHeight: 16, marginTop: 3 },
+  promotionBackdrop: { flex: 1, backgroundColor: 'rgba(17,33,58,.48)', alignItems: 'center', justifyContent: 'center', paddingHorizontal: 22 }, promotionCard: { width: '100%', backgroundColor: C.background, borderRadius: 27, padding: 22, alignItems: 'center', overflow: 'hidden' }, promotionClose: { position: 'absolute', zIndex: 2, right: 15, top: 15, width: 32, height: 32, borderRadius: 11, backgroundColor: 'rgba(17,33,58,.25)', alignItems: 'center', justifyContent: 'center' }, promotionArtwork: { width: 142, height: 142, borderRadius: 50, backgroundColor: C.primary, alignItems: 'center', justifyContent: 'center', marginTop: 7, marginBottom: 19, transform: [{ rotate: '-8deg' }] }, promotionRing: { position: 'absolute', width: 112, height: 112, borderRadius: 56, borderWidth: 1, borderColor: '#6E96EC' }, promotionSpark: { position: 'absolute', right: 18, top: 23, transform: [{ rotate: '8deg' }] }, promotionEyebrow: { color: C.primary, fontFamily: 'Inter_700Bold', fontSize: 10, letterSpacing: 1.4 }, promotionTitle: { color: C.foreground, fontFamily: 'Inter_700Bold', fontSize: 24, textAlign: 'center', lineHeight: 29, marginTop: 9 }, promotionBody: { color: C.mutedForeground, fontFamily: 'Inter_400Regular', fontSize: 13, lineHeight: 20, textAlign: 'center', maxWidth: 275, marginTop: 9, marginBottom: 20 }, promotionLater: { paddingVertical: 14 }, promotionLaterText: { color: C.mutedForeground, fontFamily: 'Inter_600SemiBold', fontSize: 13 },
 });
