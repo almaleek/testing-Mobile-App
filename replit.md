@@ -27,6 +27,7 @@ PayOnce is a polished Nigerian VTU mobile prototype for airtime, data, utility p
 - `artifacts/payonce-vtu/src/context/AppContext.tsx` — local demo wallet, transaction, and notification state
 - `artifacts/payonce-vtu/src/data.ts` — centralized Nigerian demo data and service metadata
 - `artifacts/payonce-vtu/constants/colors.ts` — PayOnce color tokens
+- `Api.md` — proposed production REST API, transaction lifecycle, provider adapters, security, and integration phases
 
 ## Architecture decisions
 
