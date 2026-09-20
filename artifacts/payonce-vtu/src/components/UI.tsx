@@ -1,6 +1,6 @@
 import { Feather } from '@expo/vector-icons';
 import React from 'react';
-import { ActivityIndicator, Pressable, StyleSheet, Text, TextInput, TextInputProps, View } from 'react-native';
+import { ActivityIndicator, Modal, Pressable, StyleSheet, Text, TextInput, TextInputProps, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import colors from '../../constants/colors';
 import { formatNaira, serviceMeta } from '../data';
@@ -60,6 +60,55 @@ export function ResultCard({ status, title, body, reference, onDone }: { status:
   return <Screen scroll={false} style={styles.resultScreen}><View style={styles.resultContent}><View style={[styles.resultIcon, { backgroundColor: `${color}18` }]}><Feather name={icon} size={42} color={color} /></View><Text style={styles.resultTitle}>{title}</Text><Text style={styles.resultBody}>{body}</Text><View style={styles.reference}><Text style={styles.referenceLabel}>Transaction reference</Text><Text style={styles.referenceValue}>{reference}</Text></View></View><View style={styles.resultActions}><Button label="Done" onPress={onDone} /><Button label="Share receipt" onPress={() => {}} variant="secondary" icon="share-2" /></View></Screen>;
 }
 
+export function PinModal({ visible, onClose, onConfirm }: { visible: boolean; onClose: () => void; onConfirm: (pin: string) => boolean }) {
+  const [pin, setPin] = React.useState<string>('');
+  const [error, setError] = React.useState<string>('');
+
+  const close = () => {
+    setPin('');
+    setError('');
+    onClose();
+  };
+
+  const confirm = () => {
+    if (pin.length !== 4) {
+      setError('Enter your 4-digit transaction PIN.');
+      return;
+    }
+    if (!onConfirm(pin)) {
+      setError('That PIN is incorrect. Try again.');
+      setPin('');
+    }
+  };
+
+  return <Modal visible={visible} transparent animationType="slide" onRequestClose={close}>
+    <View style={styles.pinBackdrop}>
+      <Pressable style={styles.pinBackdropTap} onPress={close} />
+      <View style={styles.pinSheet}>
+        <View style={styles.handle} />
+        <View style={styles.pinIcon}><Feather name="lock" size={20} color={C.primary} /></View>
+        <Text style={styles.pinTitle}>Enter transaction PIN</Text>
+        <Text style={styles.pinBody}>Confirm this action with your 4-digit transaction PIN.</Text>
+        <TextInput
+          autoFocus
+          value={pin}
+          onChangeText={(value) => { setPin(value.replace(/\D/g, '').slice(0, 4)); setError(''); }}
+          keyboardType="number-pad"
+          secureTextEntry
+          maxLength={4}
+          placeholder="••••"
+          placeholderTextColor={C.border}
+          style={styles.pinInput}
+          accessibilityLabel="Transaction PIN"
+        />
+        {error ? <Text style={styles.pinError}>{error}</Text> : <Text style={styles.pinHint}>Demo PIN: 1234</Text>}
+        <Button label="Confirm payment" onPress={confirm} disabled={pin.length !== 4} />
+        <Pressable onPress={close} style={styles.cancel}><Text style={styles.cancelText}>Cancel</Text></Pressable>
+      </View>
+    </View>
+  </Modal>;
+}
+
 export const styles = StyleSheet.create({
   screen: { flex: 1, backgroundColor: C.background, paddingHorizontal: 20 },
   header: { minHeight: 76, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' },
@@ -71,4 +120,5 @@ export const styles = StyleSheet.create({
   walletCard: { backgroundColor: C.primary, borderRadius: 25, padding: 21, marginBottom: 26, shadowColor: C.primary, shadowOpacity: .18, shadowRadius: 14, shadowOffset: { width: 0, height: 8 }, elevation: 5 }, walletTop: { flexDirection: 'row', justifyContent: 'space-between' }, walletLabel: { color: '#C7D7FF', fontFamily: 'Inter_500Medium', fontSize: 12 }, balanceLine: { flexDirection: 'row', alignItems: 'center', gap: 10, marginTop: 8 }, balance: { color: '#fff', fontFamily: 'Inter_700Bold', fontSize: 27 }, eyeButton: { padding: 4 }, walletMark: { width: 38, height: 38, backgroundColor: '#fff', borderRadius: 12, alignItems: 'center', justifyContent: 'center' }, walletBottom: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginTop: 25 }, walletHint: { color: '#C7D7FF', fontFamily: 'Inter_400Regular', fontSize: 12 }, fundButton: { backgroundColor: '#fff', paddingHorizontal: 13, paddingVertical: 10, borderRadius: 12, flexDirection: 'row', gap: 5, alignItems: 'center' }, fundText: { color: C.primary, fontFamily: 'Inter_600SemiBold', fontSize: 12 },
   serviceIcon: { alignItems: 'center', justifyContent: 'center' }, transactionItem: { backgroundColor: C.card, borderRadius: 17, padding: 13, marginBottom: 10, flexDirection: 'row', alignItems: 'center', borderWidth: 1, borderColor: '#F0F3F7' }, transactionMiddle: { flex: 1, marginLeft: 12 }, transactionName: { color: C.foreground, fontFamily: 'Inter_600SemiBold', fontSize: 13 }, transactionMeta: { color: C.mutedForeground, fontFamily: 'Inter_400Regular', fontSize: 11, marginTop: 4 }, transactionRight: { alignItems: 'flex-end' }, transactionAmount: { color: C.foreground, fontFamily: 'Inter_600SemiBold', fontSize: 12 }, status: { fontFamily: 'Inter_500Medium', fontSize: 11, marginTop: 4, textTransform: 'capitalize' },
   resultScreen: { justifyContent: 'space-between', paddingTop: 70, paddingBottom: 30 }, resultContent: { alignItems: 'center' }, resultIcon: { width: 100, height: 100, borderRadius: 50, alignItems: 'center', justifyContent: 'center', marginBottom: 24 }, resultTitle: { color: C.foreground, fontFamily: 'Inter_700Bold', fontSize: 26, textAlign: 'center' }, resultBody: { color: C.mutedForeground, fontFamily: 'Inter_400Regular', fontSize: 14, lineHeight: 22, textAlign: 'center', maxWidth: 290, marginTop: 10 }, reference: { backgroundColor: C.card, borderRadius: 16, padding: 17, width: '100%', alignItems: 'center', marginTop: 32 }, referenceLabel: { color: C.mutedForeground, fontSize: 11, fontFamily: 'Inter_400Regular' }, referenceValue: { color: C.foreground, fontFamily: 'Inter_600SemiBold', fontSize: 14, marginTop: 6 }, resultActions: { gap: 10 },
+  pinBackdrop: { flex: 1, justifyContent: 'flex-end' }, pinBackdropTap: { ...StyleSheet.absoluteFill, backgroundColor: 'rgba(17,33,58,.42)' }, pinSheet: { backgroundColor: C.background, borderTopLeftRadius: 28, borderTopRightRadius: 28, padding: 22, paddingBottom: 30, alignItems: 'center' }, handle: { width: 42, height: 5, borderRadius: 3, backgroundColor: C.border, marginBottom: 18 }, pinIcon: { width: 48, height: 48, borderRadius: 17, backgroundColor: C.secondary, alignItems: 'center', justifyContent: 'center', marginBottom: 13 }, pinTitle: { color: C.foreground, fontFamily: 'Inter_700Bold', fontSize: 19 }, pinBody: { color: C.mutedForeground, fontFamily: 'Inter_400Regular', fontSize: 12, textAlign: 'center', marginTop: 6, marginBottom: 19 }, pinInput: { width: 170, height: 58, borderRadius: 16, borderWidth: 1, borderColor: C.primary, backgroundColor: C.card, color: C.foreground, textAlign: 'center', fontFamily: 'Inter_700Bold', fontSize: 24, letterSpacing: 8 }, pinError: { color: C.destructive, fontFamily: 'Inter_500Medium', fontSize: 11, marginTop: 9, marginBottom: 10 }, pinHint: { color: C.mutedForeground, fontFamily: 'Inter_400Regular', fontSize: 11, marginTop: 9, marginBottom: 10 }, cancel: { alignItems: 'center', paddingVertical: 14 }, cancelText: { color: C.mutedForeground, fontFamily: 'Inter_600SemiBold', fontSize: 13 },
 });

@@ -616,6 +616,68 @@ Ticket request:
 }
 ```
 
+### 7.16 Transaction PIN
+
+Every wallet debit and other high-risk money movement should require transaction-PIN verification:
+
+- Airtime purchases
+- Data purchases
+- Electricity payments
+- Cable TV subscriptions
+- Education PIN purchases
+- Wallet funding where the selected funding method requires confirmation
+
+The production API must not accept or store a raw transaction PIN in the mobile app. Use one of these patterns:
+
+1. The client sends the PIN through a TLS-protected authenticated request and the server verifies a securely hashed PIN.
+2. The client requests a short-lived step-up challenge and sends a one-time `pinVerificationToken` with the purchase request.
+3. The payment provider handles step-up authentication for card funding while PayOnce still verifies its own transaction PIN for wallet debits.
+
+Recommended endpoints:
+
+- `POST /api/v1/me/transaction-pin`
+- `POST /api/v1/me/transaction-pin/verify`
+- `POST /api/v1/me/transaction-pin/change`
+- `POST /api/v1/me/transaction-pin/reset`
+
+Example verification response:
+
+```json
+{
+  "data": {
+    "pinVerificationToken": "pinv_01J...",
+    "expiresAt": "2026-09-20T10:05:00Z",
+    "uses": 1
+  }
+}
+```
+
+Purchase requests should reference the short-lived verification result rather than sending a reusable PIN:
+
+```json
+{
+  "quoteId": "quote_01J...",
+  "phoneNumber": "08034567890",
+  "network": "mtn",
+  "pinVerificationToken": "pinv_01J..."
+}
+```
+
+Server requirements:
+
+- Store only a strong one-way hash of the PIN.
+- Never log the PIN or return it in an API response.
+- Limit failed attempts and temporarily lock the PIN after repeated failures.
+- Expire verification tokens quickly and mark them as single-use.
+- Require re-authentication before PIN reset.
+- Record PIN changes, lockouts, and high-risk purchase attempts in `audit_events`.
+
+Prototype behavior:
+
+- The current Expo prototype shows a reusable PIN modal before service purchases and wallet funding.
+- The prototype accepts `1234` only to make the flow testable.
+- This value must be removed before connecting the app to a real backend.
+
 ## 8. Transaction lifecycle
 
 All bill-payment services should use the same state machine:
