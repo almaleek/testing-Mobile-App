@@ -14,6 +14,8 @@ import {
 import { Stack } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
 import { AppProvider } from '@/src/context/AppContext';
+import { UpdateModal } from '@/src/components/UI';
+import { useAppUpdates } from '@/src/hooks/useAppUpdates';
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
@@ -21,10 +23,21 @@ SplashScreen.preventAutoHideAsync();
 const queryClient = new QueryClient();
 
 function RootLayoutNav() {
+  const update = useAppUpdates();
+
   return (
-    <Stack screenOptions={{ headerShown: false, headerBackTitle: 'Back' }}>
-      <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-    </Stack>
+    <>
+      <Stack screenOptions={{ headerShown: false, headerBackTitle: 'Back' }}>
+        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+      </Stack>
+      <UpdateModal
+        visible={update.visible}
+        downloading={update.downloading}
+        error={update.error}
+        onUpdate={update.installUpdate}
+        onLater={update.dismissUpdate}
+      />
+    </>
   );
 }
 

@@ -21,6 +21,10 @@
     "web": {
       "favicon": "./assets/images/icon.png"
     },
+    "updates": {
+      "checkAutomatically": "ON_LOAD",
+      "fallbackToCacheTimeout": 0
+    },
     "plugins": [
       "expo-router"
     ],

@@ -678,6 +678,36 @@ Prototype behavior:
 - The prototype accepts `1234` only to make the flow testable.
 - This value must be removed before connecting the app to a real backend.
 
+### 7.17 App updates
+
+Use Expo Updates for over-the-air JavaScript and asset updates, with the mobile app checking for an available update on launch.
+
+Recommended behavior:
+
+- Show a dismissible update modal for normal feature and bug-fix releases.
+- Download the update only after the user chooses **Install update**.
+- Reload the app after the new bundle has downloaded.
+- Allow **Later** for non-critical releases.
+- Use a mandatory update only when the current app cannot safely work with the API or when a security fix is required.
+- Keep native changes, SDK upgrades, permissions, and app-store metadata in a store release; OTA updates cannot replace native binaries.
+
+For a production rollout, return update policy from `GET /api/v1/config`:
+
+```json
+{
+  "data": {
+    "appUpdate": {
+      "minimumSupportedVersion": "1.0.0",
+      "latestVersion": "1.1.0",
+      "forceUpdate": false,
+      "storeUrl": "https://example.com/payonce"
+    }
+  }
+}
+```
+
+The Expo client should use the API policy for minimum-version enforcement and Expo Updates for the actual bundle download. Do not force users into an OTA update loop when the installed binary is too old; send them to the appropriate app store release instead.
+
 ## 8. Transaction lifecycle
 
 All bill-payment services should use the same state machine:

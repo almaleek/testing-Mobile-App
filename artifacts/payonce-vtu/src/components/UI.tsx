@@ -109,6 +109,20 @@ export function PinModal({ visible, onClose, onConfirm }: { visible: boolean; on
   </Modal>;
 }
 
+export function UpdateModal({ visible, downloading, error, onUpdate, onLater }: { visible: boolean; downloading: boolean; error: boolean; onUpdate: () => void; onLater: () => void }) {
+  return <Modal visible={visible} transparent animationType="fade" onRequestClose={onLater}>
+    <View style={styles.updateBackdrop}>
+      <View style={styles.updateCard}>
+        <View style={styles.updateIcon}><Feather name={error ? 'refresh-cw' : 'download-cloud'} size={24} color={C.primary} /></View>
+        <Text style={styles.updateTitle}>{error ? 'Update could not install' : 'A new PayOnce update is ready'}</Text>
+        <Text style={styles.updateBody}>{error ? 'Please check your connection and try again.' : 'Install the latest version for new features, improvements, and important fixes.'}</Text>
+        <Button label={error ? 'Try again' : downloading ? 'Installing update…' : 'Install update'} onPress={onUpdate} loading={downloading} disabled={downloading} icon={error ? 'refresh-cw' : 'download'} />
+        {!downloading ? <Pressable onPress={onLater} style={styles.updateLater}><Text style={styles.updateLaterText}>Later</Text></Pressable> : null}
+      </View>
+    </View>
+  </Modal>;
+}
+
 export const styles = StyleSheet.create({
   screen: { flex: 1, backgroundColor: C.background, paddingHorizontal: 20 },
   header: { minHeight: 76, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' },
@@ -121,4 +135,5 @@ export const styles = StyleSheet.create({
   serviceIcon: { alignItems: 'center', justifyContent: 'center' }, transactionItem: { backgroundColor: C.card, borderRadius: 17, padding: 13, marginBottom: 10, flexDirection: 'row', alignItems: 'center', borderWidth: 1, borderColor: '#F0F3F7' }, transactionMiddle: { flex: 1, marginLeft: 12 }, transactionName: { color: C.foreground, fontFamily: 'Inter_600SemiBold', fontSize: 13 }, transactionMeta: { color: C.mutedForeground, fontFamily: 'Inter_400Regular', fontSize: 11, marginTop: 4 }, transactionRight: { alignItems: 'flex-end' }, transactionAmount: { color: C.foreground, fontFamily: 'Inter_600SemiBold', fontSize: 12 }, status: { fontFamily: 'Inter_500Medium', fontSize: 11, marginTop: 4, textTransform: 'capitalize' },
   resultScreen: { justifyContent: 'space-between', paddingTop: 70, paddingBottom: 30 }, resultContent: { alignItems: 'center' }, resultIcon: { width: 100, height: 100, borderRadius: 50, alignItems: 'center', justifyContent: 'center', marginBottom: 24 }, resultTitle: { color: C.foreground, fontFamily: 'Inter_700Bold', fontSize: 26, textAlign: 'center' }, resultBody: { color: C.mutedForeground, fontFamily: 'Inter_400Regular', fontSize: 14, lineHeight: 22, textAlign: 'center', maxWidth: 290, marginTop: 10 }, reference: { backgroundColor: C.card, borderRadius: 16, padding: 17, width: '100%', alignItems: 'center', marginTop: 32 }, referenceLabel: { color: C.mutedForeground, fontSize: 11, fontFamily: 'Inter_400Regular' }, referenceValue: { color: C.foreground, fontFamily: 'Inter_600SemiBold', fontSize: 14, marginTop: 6 }, resultActions: { gap: 10 },
   pinBackdrop: { flex: 1, justifyContent: 'flex-end' }, pinBackdropTap: { ...StyleSheet.absoluteFill, backgroundColor: 'rgba(17,33,58,.42)' }, pinSheet: { backgroundColor: C.background, borderTopLeftRadius: 28, borderTopRightRadius: 28, padding: 22, paddingBottom: 30, alignItems: 'center' }, handle: { width: 42, height: 5, borderRadius: 3, backgroundColor: C.border, marginBottom: 18 }, pinIcon: { width: 48, height: 48, borderRadius: 17, backgroundColor: C.secondary, alignItems: 'center', justifyContent: 'center', marginBottom: 13 }, pinTitle: { color: C.foreground, fontFamily: 'Inter_700Bold', fontSize: 19 }, pinBody: { color: C.mutedForeground, fontFamily: 'Inter_400Regular', fontSize: 12, textAlign: 'center', marginTop: 6, marginBottom: 19 }, pinInput: { width: 170, height: 58, borderRadius: 16, borderWidth: 1, borderColor: C.primary, backgroundColor: C.card, color: C.foreground, textAlign: 'center', fontFamily: 'Inter_700Bold', fontSize: 24, letterSpacing: 8 }, pinError: { color: C.destructive, fontFamily: 'Inter_500Medium', fontSize: 11, marginTop: 9, marginBottom: 10 }, pinHint: { color: C.mutedForeground, fontFamily: 'Inter_400Regular', fontSize: 11, marginTop: 9, marginBottom: 10 }, cancel: { alignItems: 'center', paddingVertical: 14 }, cancelText: { color: C.mutedForeground, fontFamily: 'Inter_600SemiBold', fontSize: 13 },
+  updateBackdrop: { flex: 1, backgroundColor: 'rgba(17,33,58,.42)', alignItems: 'center', justifyContent: 'center', paddingHorizontal: 24 }, updateCard: { width: '100%', backgroundColor: C.background, borderRadius: 25, padding: 23, alignItems: 'center' }, updateIcon: { width: 58, height: 58, borderRadius: 20, backgroundColor: C.secondary, alignItems: 'center', justifyContent: 'center', marginBottom: 15 }, updateTitle: { color: C.foreground, fontFamily: 'Inter_700Bold', fontSize: 20, textAlign: 'center' }, updateBody: { color: C.mutedForeground, fontFamily: 'Inter_400Regular', fontSize: 13, lineHeight: 20, textAlign: 'center', marginTop: 8, marginBottom: 20 }, updateLater: { paddingVertical: 14 }, updateLaterText: { color: C.mutedForeground, fontFamily: 'Inter_600SemiBold', fontSize: 13 },
 });
