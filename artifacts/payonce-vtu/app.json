@@ -1,20 +1,29 @@
 {
   "expo": {
-    "name": "PayOnce VTU",
-    "slug": "payonce-vtu",
+    "name": "Testing app",
+    "slug": "testingapp",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
-    "scheme": "payonce-vtu",
+    "scheme": "testingapp",
     "userInterfaceStyle": "automatic",
     "ios": {
-      "supportsTablet": false
+      "supportsTablet": false,
+      "bundleIdentifier": "com.testingapp.app"
     },
-    "android": { "adaptiveIcon": { "foregroundImage": "./assets/images/icon.png", "backgroundColor": "#1456D9" } },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/images/icon.png",
+        "backgroundColor": "#1456D9"
+      },
+      "package": "com.testingapp.app"
+    },
     "web": {
       "favicon": "./assets/images/icon.png"
     },
-    "plugins": ["expo-router"],
+    "plugins": [
+      "expo-router"
+    ],
     "experiments": {
       "typedRoutes": true,
       "reactCompiler": true
