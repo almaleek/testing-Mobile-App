@@ -1,0 +1,17 @@
+import { router } from 'expo-router';
+import React, { useState } from 'react';
+import { Pressable, StyleSheet, Text, View } from 'react-native';
+import { Button, Field, Header, Screen } from '@/src/components/UI';
+import colors from '@/constants/colors';
+const C = colors.light;
+
+export default function RegisterScreen() {
+  const [otp, setOtp] = useState<boolean>(false);
+  const [name, setName] = useState<string>('Abdulazeez Sodiq');
+  const [phone, setPhone] = useState<string>('08034567890');
+  const [email, setEmail] = useState<string>('sodiq@example.com');
+  const [password, setPassword] = useState<string>('password');
+  if (otp) return <Screen scroll={false}><Header title="Verify phone" onBack={() => setOtp(false)} /><View style={styles.otpWrap}><View style={styles.otpIcon}><Text style={styles.otpIconText}>123</Text></View><Text style={styles.title}>Check your messages.</Text><Text style={styles.subtitle}>We sent a 6-digit code to {phone}.</Text><Field label="Verification code" value="123456" onChangeText={() => {}} keyboardType="number-pad" maxLength={6} /><Button label="Verify and continue" onPress={() => router.replace('/(tabs)')} /><Pressable style={styles.resend}><Text style={styles.resendText}>Didn't get a code? <Text style={styles.link}>Resend</Text></Text></Pressable></View></Screen>;
+  return <Screen><Header title="Create account" onBack={() => router.back()} /><Text style={styles.kicker}>START WITH PAYONCE</Text><Text style={styles.title}>Your simpler payment life starts here.</Text><Text style={styles.subtitle}>Create your account in less than a minute.</Text><Field label="Full name" value={name} onChangeText={setName} /><Field label="Phone number" value={phone} onChangeText={setPhone} keyboardType="phone-pad" /><Field label="Email address" value={email} onChangeText={setEmail} keyboardType="email-address" autoCapitalize="none" /><Field label="Password" value={password} onChangeText={setPassword} secureTextEntry /><Button label="Create account" onPress={() => setOtp(true)} /><Text style={styles.terms}>By continuing, you agree to our <Text style={styles.link}>Terms</Text> and <Text style={styles.link}>Privacy Policy</Text>.</Text></Screen>;
+}
+const styles = StyleSheet.create({ kicker: { color: C.primary, fontFamily: 'Inter_700Bold', fontSize: 11, letterSpacing: 1.5, marginTop: 18 }, title: { color: C.foreground, fontFamily: 'Inter_700Bold', fontSize: 30, lineHeight: 37, marginTop: 10 }, subtitle: { color: C.mutedForeground, fontFamily: 'Inter_400Regular', fontSize: 14, lineHeight: 22, marginTop: 10, marginBottom: 28 }, terms: { textAlign: 'center', color: C.mutedForeground, fontFamily: 'Inter_400Regular', fontSize: 11, lineHeight: 18, marginTop: 18 }, link: { color: C.primary, fontFamily: 'Inter_600SemiBold' }, otpWrap: { marginTop: 55, alignItems: 'center' }, otpIcon: { width: 76, height: 76, borderRadius: 25, backgroundColor: C.secondary, alignItems: 'center', justifyContent: 'center', marginBottom: 24 }, otpIconText: { color: C.primary, fontFamily: 'Inter_700Bold', fontSize: 20 }, resend: { paddingVertical: 20 }, resendText: { color: C.mutedForeground, fontFamily: 'Inter_400Regular', fontSize: 13 }, resendText2: { color: C.primary } });

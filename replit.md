@@ -1,6 +1,6 @@
-# [Project name]
+# PayOnce VTU
 
-_Replace the heading above with the project's name, and this line with one sentence describing what this app does for users._
+PayOnce is a polished Nigerian VTU mobile prototype for airtime, data, utility payments, wallet funding, and transaction management.
 
 ## Run & Operate
 
@@ -22,15 +22,21 @@ _Replace the heading above with the project's name, and this line with one sente
 
 ## Where things live
 
-_Populate as you build — short repo map plus pointers to the source-of-truth file for DB schema, API contracts, theme files, etc._
+- `artifacts/payonce-vtu/app/` — Expo Router screens for onboarding, auth, tabs, service flows, wallet funding, notifications, profile, and support
+- `artifacts/payonce-vtu/src/components/UI.tsx` — shared mobile primitives and transaction presentation
+- `artifacts/payonce-vtu/src/context/AppContext.tsx` — local demo wallet, transaction, and notification state
+- `artifacts/payonce-vtu/src/data.ts` — centralized Nigerian demo data and service metadata
+- `artifacts/payonce-vtu/constants/colors.ts` — PayOnce color tokens
 
 ## Architecture decisions
 
-_Populate as you build — non-obvious choices a reader couldn't infer from the code (3-5 bullets)._
+- The first build is frontend-only and uses local state with AsyncStorage; no real VTU, payment, or backend integrations are connected.
+- Service purchases share one typed flow so airtime, data, electricity, cable TV, and education remain easy to replace with API calls later.
+- The wallet and transaction history are shared through React context so successful demo purchases immediately update the dashboard and activity screens.
 
 ## Product
 
-_Describe the high-level user-facing capabilities of this app once they exist._
+The app supports onboarding, demo login/register with OTP, a wallet dashboard, quick services, reusable purchase confirmation and result states, wallet funding, transaction filtering and receipts, notifications, profile/security controls, referrals, and support tickets.
 
 ## User preferences
 

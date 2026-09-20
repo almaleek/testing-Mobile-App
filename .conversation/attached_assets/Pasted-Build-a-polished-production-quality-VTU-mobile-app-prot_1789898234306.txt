@@ -1,0 +1,631 @@
+Build a polished, production-quality VTU mobile app prototype for Nigeria.
+
+IMPORTANT:
+This is a MOBILE APP UI prototype, not a web dashboard.
+Focus heavily on the mobile UX, screen structure, navigation, interactions, and visual polish.
+
+Use realistic demo data throughout the app. Do NOT connect to real VTU providers, payment gateways, databases, or APIs yet.
+
+TECH STACK:
+- React Native
+- Expo
+- TypeScript
+- Expo Router
+- NativeWind/Tailwind for styling
+- Use reusable components
+- Make the architecture easy to connect to a real backend/API later
+
+APP CONCEPT:
+A modern Nigerian VTU app where users can:
+- Buy airtime
+- Buy data
+- Pay electricity bills
+- Pay cable TV subscriptions
+- Purchase education-related services
+- Fund their wallet
+- View transactions
+- Receive notifications
+- Manage their profile
+- Use referral features
+
+DESIGN DIRECTION:
+Create a clean, modern fintech-style interface.
+
+Visual style:
+- White/light background
+- Blue as the primary brand color
+- Green for successful transactions
+- Red for failed transactions
+- Subtle gray backgrounds
+- Rounded cards
+- Modern typography
+- Clean spacing
+- Professional fintech aesthetic
+- Smooth animations where appropriate
+- Large touch targets
+- Mobile-first design
+
+Do not make it look like a generic template.
+The UI should feel like a real Nigerian fintech/VTU application.
+
+APP STRUCTURE:
+
+1. SPLASH SCREEN
+Create:
+- App logo placeholder
+- App name
+- Simple loading animation
+- Automatically navigate to onboarding/login
+
+2. ONBOARDING
+Create 3 onboarding slides:
+
+Slide 1:
+"Buy Airtime & Data"
+"Get your airtime and data instantly."
+
+Slide 2:
+"Pay Bills Easily"
+"Electricity, TV and other bills in seconds."
+
+Slide 3:
+"Everything in One Wallet"
+"Fund your wallet and manage your transactions easily."
+
+Buttons:
+- Skip
+- Next
+- Get Started
+
+3. LOGIN SCREEN
+Fields:
+- Phone number/email
+- Password
+
+Actions:
+- Login
+- Forgot password
+- Create account
+
+Add:
+- Show/hide password
+- Loading state
+- Demo login functionality
+
+4. REGISTER SCREEN
+Fields:
+- Full name
+- Phone number
+- Email
+- Password
+- Confirm password
+
+Button:
+"Create Account"
+
+Then show a demo OTP verification screen.
+
+5. HOME SCREEN
+
+Create a polished dashboard.
+
+Top section:
+- Greeting: "Good morning, Sodiq"
+- Notification icon
+- Profile/avatar
+
+Wallet card:
+- "Wallet Balance"
+- "₦25,450.00"
+- Hide/show balance button
+- "Fund Wallet" button
+
+Quick services grid:
+
+Airtime
+Data
+Electricity
+TV
+Education
+More
+
+Add a "Recent Transactions" section.
+
+Example transactions:
+- MTN Data - ₦500
+- Airtel Airtime - ₦1,000
+- AEDC Electricity - ₦5,000
+- GOtv Subscription - ₦4,500
+
+Include:
+"View All"
+
+Also add a promotional banner/card.
+
+6. SERVICES SCREEN
+
+Display service categories:
+
+Airtime
+Data
+Electricity
+Cable TV
+Education
+
+Use attractive service cards/icons.
+
+7. AIRTIME SCREEN
+
+Create an airtime purchase flow.
+
+Fields:
+- Network selector
+- Phone number
+- Amount
+
+Network options:
+- MTN
+- Airtel
+- Glo
+- 9mobile
+
+Show:
+- Saved beneficiaries
+- Quick amount buttons:
+  ₦100
+  ₦200
+  ₦500
+  ₦1,000
+  ₦2,000
+
+Button:
+"Buy Airtime"
+
+When clicked:
+Show a confirmation bottom sheet/modal containing:
+- Network
+- Phone number
+- Amount
+- Transaction fee
+- Total
+
+Then show a simulated successful transaction screen.
+
+8. DATA SCREEN
+
+Create a polished data purchase flow.
+
+Fields:
+- Network
+- Phone number
+- Data plan
+
+Networks:
+MTN
+Airtel
+Glo
+9mobile
+
+Example plans:
+
+MTN:
+500MB - ₦150
+1GB - ₦350
+2GB - ₦600
+5GB - ₦1,500
+10GB - ₦3,000
+
+Airtel:
+1GB - ₦350
+2GB - ₦600
+5GB - ₦1,500
+
+Allow users to switch networks and dynamically show demo plans.
+
+Add:
+- Saved beneficiaries
+- Confirmation modal
+- Successful transaction screen
+
+9. ELECTRICITY SCREEN
+
+Fields:
+- Electricity provider
+- Meter number
+- Meter type
+- Amount
+
+Providers:
+- AEDC
+- EKEDC
+- IKEDC
+- IBEDC
+- KEDCO
+
+Add "Verify Meter" button.
+
+After verification show demo customer information:
+
+Customer:
+"Abdulazeez Sodiq"
+Meter:
+"12345678901"
+Address:
+"Demo Address"
+
+Then allow payment.
+
+10. TV SCREEN
+
+Support:
+- DSTV
+- GOtv
+- Startimes
+
+Flow:
+
+Select provider
+↓
+Enter Smartcard/IUC number
+↓
+Verify customer
+↓
+Display customer information
+↓
+Select package
+↓
+Confirm payment
+↓
+Success
+
+Example packages:
+GOtv Max - ₦7,200
+GOtv Jolli - ₦4,850
+DStv Compact - ₦19,000
+DStv Premium - ₦37,000
+
+Use demo pricing and clearly treat them as prototype data.
+
+11. EDUCATION SCREEN
+
+Services:
+- JAMB
+- WAEC
+- NECO
+- NABTEB
+
+Create service cards and purchase flows using demo data.
+
+12. FUND WALLET SCREEN
+
+Create a fintech-style wallet funding screen.
+
+Show:
+
+"Fund your wallet"
+
+Options:
+
+Bank Transfer
+- Account number
+- Bank name
+- Account name
+- Copy button
+
+Card Payment
+- Demo card payment button
+
+Show:
+"Funding history"
+
+Example:
++ ₦10,000
++ ₦5,000
++ ₦20,000
+
+Do not integrate real payment APIs.
+
+13. TRANSACTIONS SCREEN
+
+Create a transaction history screen.
+
+Tabs:
+- All
+- Successful
+- Pending
+- Failed
+
+Each transaction should display:
+- Service icon
+- Description
+- Date/time
+- Amount
+- Status
+
+Examples:
+
+MTN Data
+- ₦500
+- Successful
+
+AEDC Electricity
+- ₦5,000
+- Successful
+
+GOtv
+- ₦4,500
+- Pending
+
+Airtel Airtime
+- ₦1,000
+- Failed
+
+Allow tapping a transaction to open its details.
+
+14. TRANSACTION DETAILS SCREEN
+
+Show:
+
+Transaction status
+Transaction reference
+Service
+Phone/account number
+Amount
+Fee
+Total
+Date
+Time
+
+Buttons:
+- Share Receipt
+- Download Receipt
+- Report Problem
+
+Create a polished digital receipt.
+
+15. NOTIFICATIONS SCREEN
+
+Create notifications for:
+
+"Your MTN data purchase was successful."
+"Your wallet has been funded with ₦10,000."
+"Your GOtv subscription is due soon."
+"New promotion available."
+
+Use read/unread states.
+
+16. PROFILE SCREEN
+
+Show:
+
+Profile avatar
+Full name
+Phone number
+Email
+
+Menu:
+
+Personal Information
+Security
+Transaction PIN
+Biometric Authentication
+Notifications
+Referral
+Help & Support
+Terms & Conditions
+Privacy Policy
+Logout
+
+17. REFERRAL SCREEN
+
+Show:
+
+"Invite friends and earn"
+
+Referral code:
+SODIQ123
+
+Referral link:
+payonce.example/ref/SODIQ123
+
+Statistics:
+- Total referrals
+- Successful referrals
+- Referral earnings
+
+Buttons:
+- Copy Code
+- Share Referral
+
+18. SECURITY SCREEN
+
+Options:
+- Change password
+- Change transaction PIN
+- Enable biometric authentication
+- Login activity
+
+Use toggles and confirmation modals.
+
+19. SUPPORT SCREEN
+
+Include:
+
+FAQ
+Contact Support
+WhatsApp Support
+Report Transaction
+Call Support
+
+Create a simple support ticket form.
+
+20. SUCCESS / FAILURE STATES
+
+Create reusable transaction result screens.
+
+Success:
+✓
+"Transaction Successful"
+"Your transaction has been completed successfully."
+
+Failure:
+×
+"Transaction Failed"
+"Something went wrong. Please try again."
+
+Pending:
+○
+"Transaction Pending"
+"We're processing your transaction."
+
+Include transaction reference and action buttons.
+
+NAVIGATION:
+
+Use Expo Router.
+
+Main bottom navigation:
+
+Home
+Services
+Transactions
+Profile
+
+Do not put every feature in the bottom navigation.
+
+Services should open:
+Airtime
+Data
+Electricity
+TV
+Education
+
+Use stack navigation for transaction flows.
+
+COMPONENT ARCHITECTURE:
+
+Create reusable components such as:
+
+- Button
+- Input
+- ServiceCard
+- WalletCard
+- TransactionItem
+- NetworkSelector
+- DataPlanCard
+- AmountSelector
+- ConfirmationModal
+- SuccessScreen
+- FailureScreen
+- PendingScreen
+- EmptyState
+- LoadingState
+- Header
+- BottomSheet
+- TransactionStatusBadge
+
+DEMO DATA:
+
+Create a centralized demo data layer so it can easily be replaced by API calls later.
+
+Do not hardcode transaction data directly inside every screen.
+
+Create realistic Nigerian demo data.
+
+STATE:
+
+Use local state/context or a lightweight state-management solution.
+
+The prototype should support:
+- Demo login
+- Demo wallet balance
+- Simulated wallet funding
+- Simulated purchases
+- Updating wallet balance after successful purchases
+- Adding transactions to transaction history
+- Success/failure/pending transaction states
+- Saved beneficiaries
+
+IMPORTANT UX:
+
+Every important action should actually work within the prototype.
+
+For example:
+
+User selects:
+MTN → 1GB → ₦350 → Buy
+
+Then:
+
+Confirmation modal
+↓
+Processing animation
+↓
+Success screen
+↓
+Wallet balance decreases
+↓
+Transaction appears in history
+
+Similarly for electricity and TV.
+
+ERROR HANDLING:
+
+Create realistic validation:
+
+- Invalid phone number
+- Empty fields
+- Invalid amount
+- Insufficient wallet balance
+- Invalid meter number
+- Invalid smartcard number
+
+Show clean inline error messages.
+
+LOADING STATES:
+
+Use skeletons/spinners where appropriate.
+
+Do not leave buttons doing nothing.
+
+RESPONSIVE DESIGN:
+
+The primary target is Android phones.
+
+Make sure the UI works on different screen sizes.
+
+Avoid tiny text and cramped layouts.
+
+ACCESSIBILITY:
+
+- Good contrast
+- Large touch targets
+- Meaningful labels
+- Accessible buttons
+- Avoid relying only on colors to communicate status
+
+CODE QUALITY:
+
+Use TypeScript throughout.
+
+Create reusable components.
+
+Keep screens organized.
+
+Separate:
+- screens
+- components
+- data
+- types
+- utilities
+- navigation
+
+Do not build the backend yet.
+
+Do not integrate real VTU APIs yet.
+
+Do not integrate real payment gateways yet.
+
+The goal is to create a HIGH-QUALITY, FULLY INTERACTIVE MOBILE VTU PROTOTYPE that looks and behaves like a real production app and can later be connected to an Express/Node.js backend and real VTU/payment APIs.
+
+Before finishing, test every navigation path and make sure there are no dead buttons or broken screens.
